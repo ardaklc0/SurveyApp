@@ -1,0 +1,19 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+@using SurveyApp.DataTransferObject.Responses.Response
+@model GetResponseDisplayResponse
+
+@{
+    string json = Model.Answers;
+    JArray jsonArray = JArray.Parse(json);
+
+    foreach (var obj in jsonArray)
+    {
+        <td>
+            @obj["answer"].ToString()
+        </td>
+    }
+}
+
+
+

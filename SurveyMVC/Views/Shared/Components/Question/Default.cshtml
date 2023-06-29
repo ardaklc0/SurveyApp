@@ -1,0 +1,38 @@
+﻿@using Newtonsoft.Json.Linq
+@using SurveyApp.DataTransferObject.Responses.Question
+@model GetQuestionDisplayResponse
+
+
+@{
+    string json = Model.Options;
+    <h5>@Model.Text</h5>
+    if (json != null)
+    {
+        JArray jsonArray = JArray.Parse(json);
+        foreach (var obj in jsonArray)
+        {
+            if (Model.Type == "checkbox")
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="@obj["text"].ToString()" id="@Model.Id">
+                    <label class="form-check-label" for="@Model.Id">
+                    @obj["text"].ToString()
+                    </label>
+                </div>
+            }
+            else
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault_@Model.Id" id="@Model.Id" value="@obj["text"].ToString()">
+                    <label class="form-check-label" for="@Model.Id">
+                    @obj["text"].ToString()
+                    </label>
+                </div>
+            }
+        }
+    }
+    else
+    {
+    <input type="range" class="form-range" min="0" max="5" id="@Model.Id">
+    }
+}

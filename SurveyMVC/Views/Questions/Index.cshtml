@@ -1,0 +1,124 @@
+﻿@using SurveyMVC.ViewComponents
+@model QuestionDisplayViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2 class="mb-3">@Model.Survey.Title</h2>
+        <h3 class="mb-3">@Model.Survey.Description</h3>
+    </div>
+    <div class="col-md-6">
+        <form method="get" asp-controller="Questions" asp-action="Index">
+            <div class="form-row">
+                <div class="col-md-8 mb-3">
+                    <label for="surveyId">Survey ID:</label>
+                    <input class="form-control" type="text" id="surveyId" name="surveyId" />
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary" type="submit">Get Responses</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr class="border-top border-dark">
+
+
+@foreach (var item in Model.Questions)
+{
+    @await Component.InvokeAsync(typeof(QuestionViewComponent), new {item = item})<br />
+}
+
+<button type="submit" class="btn btn-primary" id="requestButton">Submit</button>
+
+@section Scripts{
+    <script>
+    
+    function getAnswers() {
+        var selectedValues = [];
+        @foreach (var item in Model.Questions)
+        {
+            <text>
+            if ("@item.Type" === "checkbox") {
+                var checkboxes = document.querySelectorAll('input[id="@item.Id"]:checked');
+                if (checkboxes.length > 0)
+                {
+                    checkboxes.forEach(function(checkbox) {
+                        var choosenAnswerValue = checkbox.value;
+                        var data = {
+                            id: "@item.Id",
+                            answer: choosenAnswerValue,
+                        };
+                        selectedValues.push(data);
+                    });
+                }
+            } else if ("@item.Type" === "rating"){
+                var ratingInput = document.getElementById("@item.Id");
+                var selectedRating = ratingInput.value;
+                var data = {
+                    id: "@item.Id",
+                    answer: selectedRating,
+                };
+                selectedValues.push(data);
+            } else {
+                var selectedRadio = document.querySelector('input[id="@item.Id"]:checked');
+                if (selectedRadio !== null)
+                {
+                    var selectedAnswer = selectedRadio.value;
+                    var data = {
+                        id: "@item.Id",
+                        answer: selectedAnswer,
+                    };
+                    selectedValues.push(data);
+                }
+            }
+            </text>
+        }
+        console.log(selectedValues);
+        return selectedValues;
+    }
+
+
+   
+    $(document).ready(function () {
+        $('#requestButton').click(function() {
+            var answers = getAnswers();
+            var datenow = new Date().toISOString();
+            var surveyId = @(Model.Survey.Id);
+
+            var requestedAnswers = JSON.stringify(answers);
+            var requestedData = {
+                'Answers': requestedAnswers,
+                'AnswerDate': datenow,
+                'SurveyId': surveyId
+            };
+
+            console.log(requestedAnswers);
+            console.log(JSON.stringify(requestedData));
+
+            $.ajax({
+                url: '@Url.Action("Submit", "Responses")',
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(requestedData),
+                success: function(response){ 
+                    alert('success!');
+                    console.log(response);
+                },
+                error: function(response, xhr, status, error){
+                    alert('error!');
+                    console.log(response);
+                    console.log(xhr);
+                    console.log(status);
+                    console.log(error);
+                } 
+            });
+        });
+    });
+
+    </script>
+}
+                  
