@@ -9,8 +9,8 @@ namespace SurveyMVC.Extensions
     {
         public static IServiceCollection AddInjections(this IServiceCollection services, string connectionString)
         {
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, EFUserRepository>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, EFUserRepository>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IQuestionRepository, EFQuestionRepository>();
             services.AddScoped<IResponseService, ResponseService>();

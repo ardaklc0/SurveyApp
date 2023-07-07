@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveyMVC", "SurveyMVC\SurveyMVC.csproj", "{EC00242A-8E00-42BB-949C-27EC0CAA9BDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyAPI", "SurveyAPI\SurveyAPI.csproj", "{84E116DA-1929-4F7E-8436-97F890C14259}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveyAPI", "SurveyAPI\SurveyAPI.csproj", "{84E116DA-1929-4F7E-8436-97F890C14259}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B63D53AA-A339-4CF3-95C4-C964AE2A0704}"
 EndProject
@@ -19,13 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{35D475
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DAB22794-A126-494E-A73A-31649139C3E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyApp.DataTransferObject", "SurveyApp.DataTransferObject\SurveyApp.DataTransferObject.csproj", "{D823B56F-C752-4931-9DA4-EE01C0EEDCAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveyApp.DataTransferObject", "SurveyApp.DataTransferObject\SurveyApp.DataTransferObject.csproj", "{D823B56F-C752-4931-9DA4-EE01C0EEDCAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyApp.Services", "SurveyApp.Services\SurveyApp.Services.csproj", "{42038E7D-E31C-4054-9967-6B70141F505E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveyApp.Services", "SurveyApp.Services\SurveyApp.Services.csproj", "{42038E7D-E31C-4054-9967-6B70141F505E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyApp.Entities", "SurveyApp.Entities\SurveyApp.Entities.csproj", "{E03C6F79-5FDF-493F-BFAB-357ACD419725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveyApp.Entities", "SurveyApp.Entities\SurveyApp.Entities.csproj", "{E03C6F79-5FDF-493F-BFAB-357ACD419725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyApp.Infrastructure", "SurveyApp.Infrastructure\SurveyApp.Infrastructure.csproj", "{145614C6-8C13-498B-8CB8-82DDE0680A55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveyApp.Infrastructure", "SurveyApp.Infrastructure\SurveyApp.Infrastructure.csproj", "{145614C6-8C13-498B-8CB8-82DDE0680A55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

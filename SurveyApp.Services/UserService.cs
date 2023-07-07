@@ -87,5 +87,11 @@ namespace SurveyApp.Services
             };
             return repository.UpdateAsync(updatedUser);
         }
+
+        public async Task<User> ValidateUserAsync(string username, string password)
+        {
+            var users = await repository.GetAllAsync();
+            return users.SingleOrDefault(u => u.Name == username && u.Password == password);
+        }
     }
 }

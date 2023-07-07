@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SurveyApp.DataTransferObject.Requests.Response;
 using SurveyApp.Services;
 using SurveyMVC.Models;
+using System.Data;
+using System.Reflection.Metadata;
 
 namespace SurveyMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ResponsesController : Controller
     {
         private readonly IResponseService responseService;
@@ -46,6 +50,7 @@ namespace SurveyMVC.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Submit([FromBody] CreateNewResponseRequest request)
         {
             if (ModelState.IsValid)

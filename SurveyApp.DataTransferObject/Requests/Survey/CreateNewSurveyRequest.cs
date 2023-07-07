@@ -12,6 +12,7 @@ namespace SurveyApp.DataTransferObject.Requests.Survey
         public string Description { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public DateTime? UpdateDate { get; set; }
+        public string Token { get; set; }
         public int UserId { get; set; }
     }
 }

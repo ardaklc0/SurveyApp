@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SurveyApp.DataTransferObject.Requests.Response;
 using SurveyApp.Services;
 using SurveyMVC.Models;
+using System.Data;
 
 namespace SurveyMVC.Controllers
 {
@@ -15,16 +17,22 @@ namespace SurveyMVC.Controllers
             this.surveyService = surveyService;
         }
 
-        public async Task<IActionResult> Index(int surveyId = 1)
+        public async Task<IActionResult> Index(string token, int surveyId = 1)
         {
-            var questions = await questionService.GetAllQuestionsBySurveyIdAsync(surveyId);
+
             var survey = await surveyService.GetSurveyAsync(surveyId);
-            var questionsViewModel = new QuestionDisplayViewModel
+            if (survey.Token == token)
             {
-                Questions = questions,
-                Survey = survey
-            };
-            return View(questionsViewModel);
+                var questions = await questionService.GetAllQuestionsBySurveyIdAsync(surveyId);
+                var questionsViewModel = new QuestionDisplayViewModel
+                {
+                    Questions = questions,
+                    Survey = survey
+                };
+                return View(questionsViewModel);
+            }
+            return View();
+
         }
 
         

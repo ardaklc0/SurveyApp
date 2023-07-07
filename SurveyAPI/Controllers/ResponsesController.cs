@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SurveyApp.DataTransferObject.Requests.Response;
 using SurveyApp.Services;
@@ -7,6 +8,7 @@ namespace SurveyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ResponsesController : ControllerBase
     {
         private readonly IResponseService service;

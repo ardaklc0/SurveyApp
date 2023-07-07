@@ -15,6 +15,7 @@ namespace SurveyApp.Entities
         public DateTime? UpdateDate { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
+        public string? Token { get; set; }
         public List<Question>? Questions { get; set; }
         public List<Response>? Responses { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SurveyApp.DataTransferObject.Requests.Survey;
 using SurveyApp.Entities;
@@ -8,6 +9,7 @@ namespace SurveyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SurveysController : ControllerBase
     {
         private readonly ISurveyService service;
@@ -31,12 +33,21 @@ namespace SurveyAPI.Controllers
             return Ok(survey);
         }
 
+        [HttpGet("[action]/{id:int}")]
+        public async Task<IActionResult> GetSurveyLink(int id)
+        {
+            var survey = await service.GetSurveyAsync(id);
+            string redirectUrl = GenerateRedirectUrl(id, survey.Token);
+            return Ok(redirectUrl);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateSurvey(CreateNewSurveyRequest request)
         {
             var createdSurvey = await service.CreateSurveyAsync(request);
+            var token = createdSurvey.Token;
             int surveyId = createdSurvey.Id;
-            string redirectUrl = GenerateRedirectUrl(surveyId);
+            string redirectUrl = GenerateRedirectUrl(surveyId, token);
             return Ok(redirectUrl);
         }
 
@@ -55,14 +66,15 @@ namespace SurveyAPI.Controllers
         }
 
 
-        string GenerateRedirectUrl(int surveyId)
+        string GenerateRedirectUrl(int surveyId, string token)
         {
             var request = HttpContext.Request;
             string baseUrl = $"{request.Scheme}://localhost:7052";
             string controllerName = "Questions";
             string actionName = "Index";
-            string redirectUrl = $"{baseUrl}/{controllerName}/{actionName}?surveyId={surveyId}";
+            string redirectUrl = $"{baseUrl}/{controllerName}/{actionName}?token={token}&surveyId={surveyId}";
             return redirectUrl;
         }
+
     }
 }

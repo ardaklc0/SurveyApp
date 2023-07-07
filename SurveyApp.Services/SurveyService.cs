@@ -1,4 +1,5 @@
-﻿using SurveyApp.DataTransferObject.Requests.Survey;
+﻿using Azure.Core;
+using SurveyApp.DataTransferObject.Requests.Survey;
 using SurveyApp.DataTransferObject.Responses.Survey;
 using SurveyApp.Entities;
 using SurveyApp.Infrastructure.Repository;
@@ -27,6 +28,7 @@ namespace SurveyApp.Services
                 Description = request.Description,
                 UpdateDate = request.UpdateDate,
                 UserId = request.UserId,
+                Token = request.Token
             };
             await repository.CreateAsync(survey);
             return survey;
@@ -47,7 +49,8 @@ namespace SurveyApp.Services
                 CreationDate = survey.CreationDate,
                 Description = survey.Description,
                 UpdateDate = survey.UpdateDate,
-                UserId = survey.UserId
+                UserId = survey.UserId,
+                Token = survey.Token
             });
             return responses;
         }
@@ -62,7 +65,8 @@ namespace SurveyApp.Services
                 CreationDate = survey.CreationDate,
                 Description = survey.Description,
                 UpdateDate = survey.UpdateDate,
-                UserId = survey.UserId
+                UserId = survey.UserId,
+                Token = survey.Token
             };
             return response;
         }
@@ -76,7 +80,8 @@ namespace SurveyApp.Services
                 CreationDate = request.CreationDate,
                 Description = request.Description,
                 UpdateDate = request.UpdateDate,
-                UserId = request.UserId
+                UserId = request.UserId,
+                Token = request.Token
             };
             return repository.UpdateAsync(updatedSurvey);
             
